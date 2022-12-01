@@ -1,8 +1,6 @@
 package springBootCompetences.mycomp.equipes;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,19 +15,23 @@ public class EquipeController {
         this.equipeService = equipeService;
     }
 
+    @GetMapping("")
     public List<Equipe> findAll() {
         return equipeService.findAll();
     }
 
-    public Equipe save(Equipe entity) {
+    @PostMapping("")
+    public Equipe save(@RequestBody Equipe entity) {
         return equipeService.save(entity);
     }
 
-    public Equipe findById(String id) {
+    @GetMapping("{id}")
+    public Equipe findById(@PathVariable  String id) {
         return equipeService.findById(id);
     }
 
-    public void deleteById(String id) {
+    @DeleteMapping("{id}")
+    public void deleteById(@PathVariable String id) {
         equipeService.deleteById(id);
     }
 }
