@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+	//spring Boot data mongo la connexion à la base de données MongoDB
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
