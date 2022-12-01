@@ -90,4 +90,6 @@ public class EquipeServiceImpl implements EquipeService {
 //        equipe.getMembres().removeIf(membre1 -> membre1.getId().equals(idMembre));
         this.save(equipe);
     }
+
+
 }
