@@ -10,7 +10,7 @@ import springBootCompetences.mycomp.personnes.PersonneServiceImpl;
 public class EquipeConfiguration {
 
     @Bean
-    public EquipeService equipeService(EquipeRepository equipeRepository) {
-        return new EquipeServiceImpl(equipeRepository);
+    public EquipeService equipeService(EquipeRepository equipeRepository, PersonneService personneService) {
+        return new EquipeServiceImpl(equipeRepository, personneService);
     }
 }
