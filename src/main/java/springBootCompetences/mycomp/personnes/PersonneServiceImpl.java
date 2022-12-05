@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import springBootCompetences.mycomp.equipes.Equipe;
+import springBootCompetences.mycomp.personnes.dto.PersonneMinimalDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +21,16 @@ public class PersonneServiceImpl implements PersonneService {
 
     @Override
     public List<Personne> findAll() {
-        return personneRepository.findAll();
+        List<Personne> listPersonnes = personneRepository.findAll();
+        List<PersonneMinimalDTO> personneMinimalDTOList = List.of();
+        for (Personne personne: listPersonnes) {
+            PersonneMinimalDTO personneMinimalDTO = new PersonneMinimalDTO();
+            personneMinimalDTO.setNom(personne.getNom());
+            personneMinimalDTO.setPrenom(personne.getPrenom());
+            personneMinimalDTO.setId(personne.getId());
+            personneMinimalDTOList.add(personneMinimalDTO);
+        }
+        return personneMinimalDTOList;
     }
 
 
@@ -49,14 +59,14 @@ public class PersonneServiceImpl implements PersonneService {
             personne.getCompetences().add(niveauCompetence);
         }
 
-                boolean iscompetence=false;
-        for (NiveauCompetence competencePersonne: personne.getCompetences()) {
-            if (competencePersonne.getId().equals(idMembre)){
-                isMmembre = true;
-                break;
-            }
-        }
-        if (!isMmembre) equipe.getMembres().add(membre);
+//                boolean iscompetence=false;
+//        for (NiveauCompetence competencePersonne: personne.getCompetences()) {
+//            if (competencePersonne.getId().equals(idMembre)){
+//                isMmembre = true;
+//                break;
+//            }
+//        }
+//        if (!isMmembre) equipe.getMembres().add(membre);
 
 
         return this.save(personne);
