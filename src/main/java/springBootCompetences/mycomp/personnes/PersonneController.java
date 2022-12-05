@@ -3,6 +3,7 @@ package springBootCompetences.mycomp.personnes;
 import org.springframework.web.bind.annotation.*;
 import springBootCompetences.mycomp.competances.Competence;
 import springBootCompetences.mycomp.equipes.Equipe;
+import springBootCompetences.mycomp.personnes.dto.PersonneMinimalDTO;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class PersonneController {
     }
 
     @GetMapping("")
-    public List<Personne> findAll() {
+    public List<PersonneMinimalDTO> findAll() {
         return personneService.findAll();
     }
 
@@ -37,10 +38,15 @@ public class PersonneController {
         personneService.deleteById(id);
     }
 
-    @PostMapping("{idPersonne}/competences")
-    public Personne ajoutCompetence(@PathVariable String idPersonne, @RequestBody NiveauCompetence niveauCompetence,
-                                    @RequestParam (value = "idCompetence", required = false) String idCompetence ,
-                                    @RequestParam (value = "niveau", required = false) Integer niveau ) {
-        return this.personneService.ajoutCompetence(idPersonne, niveauCompetence);
+    @PutMapping ("{idPersonne}/competences/{idCompetence}/niveau/{newniveau}")
+    public void ajoutCompetence(@PathVariable String idPersonne,@PathVariable String idCompetence,
+                                      @PathVariable Integer newniveau) {
+         this.personneService.ajoutCompetence(idPersonne, idCompetence , newniveau);
+    }
+
+    @DeleteMapping("{idPersonne}/competences")
+    public void supprimeCompetence(@PathVariable String idPersonne , @RequestParam Integer niveau,
+                                   @RequestParam String idCompetence) {
+        this.personneService.supprimeCompetence(idPersonne, niveau, idCompetence);
     }
 }

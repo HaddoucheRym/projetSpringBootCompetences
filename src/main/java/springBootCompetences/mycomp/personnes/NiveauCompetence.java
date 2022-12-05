@@ -13,7 +13,4 @@ public class NiveauCompetence {
     @DBRef
     private Competence competence;
     private Integer niveau;
-
-
-
 }
