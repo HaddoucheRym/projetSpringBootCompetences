@@ -19,7 +19,7 @@ public class PersonneController {
     }
 
     @GetMapping("")
-    public List<PersonneMinimalDTO> findAll() {
+    public List<Personne> findAll() {
         return personneService.findAll();
     }
 
@@ -38,15 +38,22 @@ public class PersonneController {
         personneService.deleteById(id);
     }
 
-    @PutMapping ("{idPersonne}/competences/{idCompetence}/niveau/{newniveau}")
-    public void ajoutCompetence(@PathVariable String idPersonne,@PathVariable String idCompetence,
-                                      @PathVariable Integer newniveau) {
-         this.personneService.ajoutCompetence(idPersonne, idCompetence , newniveau);
+    @PutMapping ("{idPersonne}/competences/{idCompetence}")
+    public void ajoutCompetence(@PathVariable String idPersonne,
+                                @PathVariable String idCompetence,
+                                      @RequestParam Integer newNiveau) {
+         this.personneService.ajoutCompetence(idPersonne, idCompetence , newNiveau);
     }
 
     @DeleteMapping("{idPersonne}/competences")
-    public void supprimeCompetence(@PathVariable String idPersonne , @RequestParam Integer niveau,
+    public void supprimeCompetence(@PathVariable String idPersonne ,
                                    @RequestParam String idCompetence) {
-        this.personneService.supprimeCompetence(idPersonne, niveau, idCompetence);
+        this.personneService.supprimeCompetence(idPersonne,  idCompetence);
+    }
+
+    @GetMapping("competences/{idCompetence}")
+    public List<Personne> affichePersonnesNiveau(@PathVariable  String idCompetence,
+            @RequestParam Integer niveau){
+        return this.personneService.affichePersonnesNiveau(niveau,idCompetence );
     }
 }

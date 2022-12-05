@@ -44,4 +44,6 @@ public class EquipeController {
     public void supprimeMembre(@PathVariable String idEquipe, @PathVariable String idMembre) {
        this.equipeService.supprimeMembre(idEquipe, idMembre);
     }
+
+    
 }

@@ -22,6 +22,4 @@ public class Equipe {
     private String nom;
     @DBRef
     private List<Personne> membres = new ArrayList<>();
-
-
 }

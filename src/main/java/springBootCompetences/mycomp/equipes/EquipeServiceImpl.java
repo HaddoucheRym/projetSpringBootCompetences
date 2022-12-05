@@ -3,10 +3,14 @@ package springBootCompetences.mycomp.equipes;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import springBootCompetences.mycomp.personnes.NiveauCompetence;
 import springBootCompetences.mycomp.personnes.Personne;
 import springBootCompetences.mycomp.personnes.PersonneService;
+import springBootCompetences.mycomp.personnes.dto.PersonneMinimalDTO;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 //@Service
 public class EquipeServiceImpl implements EquipeService {
@@ -91,5 +95,27 @@ public class EquipeServiceImpl implements EquipeService {
         this.save(equipe);
     }
 
+    @Override
+    public List<PersonneMinimalDTO> trouverPersonneCompetenceMax(String idEquipe) {
+        Equipe equipe = this.findById(idEquipe);
+        List<PersonneMinimalDTO> result = new ArrayList<>();
 
+//        PersonneMinimalDTO personneMinimalDTO = new PersonneMinimalDTO();
+//        Integer niveauMax = 0;
+//        NiveauCompetence competenceMax = new NiveauCompetence();
+        for (Personne personne: equipe.getMembres()) {
+            Optional<NiveauCompetence> niveauCompetence = personne.getCompetences().
+                    stream().reduce((comp1, comp2) -> {
+                        return comp1.getNiveau() > comp2.getNiveau() ? comp1 : comp2;
+                    });
+            List<NiveauCompetence> niveauCompetences = new ArrayList<>();
+            result.add(new PersonneMinimalDTO(
+                    personne.getId(),
+                    personne.getNom(),
+                    personne.getPrenom(),
+                    niveauCompetence.get()
+            ));
+        }
+        return result;
+    }
 }

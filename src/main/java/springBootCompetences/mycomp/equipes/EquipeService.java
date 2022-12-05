@@ -1,5 +1,7 @@
 package springBootCompetences.mycomp.equipes;
 
+import springBootCompetences.mycomp.personnes.dto.PersonneMinimalDTO;
+
 import java.util.List;
 
 public interface EquipeService {
@@ -20,4 +22,14 @@ public interface EquipeService {
     Equipe ajoutMembre(String idEquipe, String idMembre);
 
     void supprimeMembre(String idEquipe, String idMembre);
+
+    /**
+     *
+     * @param idEquipe
+     * @return
+     */
+    List<PersonneMinimalDTO> trouverPersonneCompetenceMax(String idEquipe);
+
+
+
 }
