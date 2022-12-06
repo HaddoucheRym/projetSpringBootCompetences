@@ -9,6 +9,7 @@ import springBootCompetences.mycomp.competances.CompetenceService;
 import springBootCompetences.mycomp.equipes.Equipe;
 import springBootCompetences.mycomp.equipes.EquipeService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +88,7 @@ public class PersonneServiceImpl implements PersonneService {
 
     @Override
     public Personne save(Personne entity) {
+        entity.setDateModification(LocalDateTime.now());
         return personneRepository.save(entity);
     }
 

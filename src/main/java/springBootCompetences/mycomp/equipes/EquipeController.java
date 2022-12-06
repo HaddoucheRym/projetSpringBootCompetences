@@ -45,5 +45,5 @@ public class EquipeController {
        this.equipeService.supprimeMembre(idEquipe, idMembre);
     }
 
-    
+
 }

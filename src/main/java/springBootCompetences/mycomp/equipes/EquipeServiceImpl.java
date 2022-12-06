@@ -1,5 +1,7 @@
 package springBootCompetences.mycomp.equipes;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -8,6 +10,7 @@ import springBootCompetences.mycomp.personnes.Personne;
 import springBootCompetences.mycomp.personnes.PersonneService;
 import springBootCompetences.mycomp.personnes.dto.PersonneMinimalDTO;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +18,7 @@ import java.util.Optional;
 //@Service
 public class EquipeServiceImpl implements EquipeService {
 
+    private static final Logger logger = LoggerFactory.getLogger(EquipeServiceImpl.class);
     private final EquipeRepository equipeRepository;
     private final PersonneService personneService;
 
@@ -36,13 +40,18 @@ public class EquipeServiceImpl implements EquipeService {
                 this.personneService.save(membre);
             }
         }
+        entity.setDateModification(LocalDateTime.now());
+        logger.info("Sauvegarde d'une nouvelle equipe: " + entity);
         return equipeRepository.save(entity);
     }
 
 
     @Override
     public Equipe findById(String id) {
-        return equipeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return equipeRepository.findById(id).orElseThrow(() -> {
+            logger.warn("id invalide: "+id);
+              return  new ResponseStatusException(HttpStatus.NOT_FOUND);
+        });
     }
 
 
