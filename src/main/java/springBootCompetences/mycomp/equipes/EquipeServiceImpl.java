@@ -35,12 +35,12 @@ public class EquipeServiceImpl implements EquipeService {
 
     @Override
     public Equipe save(Equipe entity) {
+        entity.setDateModification(LocalDateTime.now());
         for (Personne membre: entity.getMembres()) {
             if (membre.getId() == null) {
                 this.personneService.save(membre);
             }
         }
-        entity.setDateModification(LocalDateTime.now());
         logger.info("Sauvegarde d'une nouvelle equipe: " + entity);
         return equipeRepository.save(entity);
     }

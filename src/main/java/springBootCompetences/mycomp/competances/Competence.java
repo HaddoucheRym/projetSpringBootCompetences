@@ -9,7 +9,7 @@ import springBootCompetences.mycomp.utils.Entity;
 
 @Data
 @Document
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 public class Competence extends Entity {
 //    @Id
@@ -19,5 +19,10 @@ public class Competence extends Entity {
 
     public Competence(String id) {
         this.id = id;
+    }
+
+    public Competence(String nom, String description) {
+        this.nom = nom;
+        this.description = description;
     }
 }
